@@ -16,7 +16,7 @@ describe('Auth routes', () => {
   it('should sign up a new user', async () => {
     const res = await request(app)
       .post('/api/auth/signup')
-      .send({ name: 'Test User', email, password })
+      .send({ name: 'Test User', email, mobile: '1234567890', password })
       .expect(200);
     expect(res.body).toHaveProperty('token');
     expect(res.body).toHaveProperty('user');
