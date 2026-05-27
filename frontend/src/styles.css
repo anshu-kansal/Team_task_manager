@@ -1573,3 +1573,38 @@ tr.overdue-row { background: rgba(239, 68, 68, 0.04); }
   .nav-bar { padding: 0.6rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
   .page-body { padding: 1rem; }
 }
+
+/* Enforce desktop/navbar layout on wider viewports to avoid mobile rules leaking
+   into laptop layouts (restores original professional desktop appearance). */
+@media (min-width: 761px) {
+  .mobile-toggle { display: none !important; }
+
+  .nav-bar {
+    justify-content: space-between !important;
+    padding: 0.8rem 1.5rem !important;
+    position: sticky;
+    top: 0;
+  }
+
+  .nav-links {
+    display: flex !important;
+    position: static !important;
+    flex-direction: row !important;
+    gap: 0.25rem !important;
+    max-height: none !important;
+    padding: 0 !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  .nav-links a, .link-button {
+    font-size: 0.875rem !important;
+    padding: 0.5rem 0.9rem !important;
+    background: transparent !important;
+  }
+
+  .brand { margin: 0; font-size: 1.15rem; }
+
+  .profile-container { position: static !important; right: auto !important; transform: none !important; }
+}
