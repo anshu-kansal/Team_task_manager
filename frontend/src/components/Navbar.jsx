@@ -4,7 +4,10 @@ import { NavLink, useNavigate } from 'react-router-dom';
 export default function Navbar({ user, onLogout }) {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+  const firstLinkRef = useRef(null);
 
   const handleLogout = () => {
     onLogout();
@@ -26,13 +29,79 @@ export default function Navbar({ user, onLogout }) {
     }
   }, [isDropdownOpen]);
 
+  // Mobile menu: outside clicks, Escape to close, focus and body scroll lock
+  useEffect(() => {
+    function onKey(e) {
+      if (e.key === 'Escape') setIsMobileOpen(false);
+      // focus trap handling
+      if (e.key === 'Tab' && mobileMenuRef.current) {
+        const focusable = mobileMenuRef.current.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+        if (!focusable || focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      }
+    }
+
+    function handleClickOutside(e) {
+      if (isMobileOpen && mobileMenuRef.current && !mobileMenuRef.current.contains(e.target)) {
+        setIsMobileOpen(false);
+      }
+    }
+
+    if (isMobileOpen) {
+      document.addEventListener('keydown', onKey);
+      document.addEventListener('mousedown', handleClickOutside);
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => firstLinkRef.current?.focus(), 50);
+      return () => {
+        document.removeEventListener('keydown', onKey);
+        document.removeEventListener('mousedown', handleClickOutside);
+        document.body.style.overflow = prev;
+      };
+    }
+
+    return undefined;
+  }, [isMobileOpen]);
+
   return (
     <nav className="nav-bar">
       <div className="brand">🚀 Team Task Manager</div>
-      <div className="nav-links">
-        <NavLink to="/dashboard">📊 Dashboard</NavLink>
-        <NavLink to="/projects">📁 Projects</NavLink>
-        <NavLink to="/tasks">✅ Tasks</NavLink>
+
+      <button
+        className="mobile-toggle"
+        aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={isMobileOpen}
+        aria-controls="main-nav"
+        onClick={() => setIsMobileOpen(!isMobileOpen)}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          {isMobileOpen ? (
+            <path d="M18 6L6 18M6 6l12 12" />
+          ) : (
+            <>
+              <path d="M3 12h18" />
+              <path d="M3 6h18" />
+              <path d="M3 18h18" />
+            </>
+          )}
+        </svg>
+      </button>
+
+      <div id="main-nav" ref={mobileMenuRef} className={`nav-links ${isMobileOpen ? 'mobile-open' : ''}`}>
+        <NavLink to="/dashboard" onClick={() => setIsMobileOpen(false)} ref={firstLinkRef}>📊 Dashboard</NavLink>
+        <NavLink to="/projects" onClick={() => setIsMobileOpen(false)}>📁 Projects</NavLink>
+        <NavLink to="/tasks" onClick={() => setIsMobileOpen(false)}>✅ Tasks</NavLink>
+        <NavLink to="/profile" onClick={() => setIsMobileOpen(false)}>👤 Profile</NavLink>
+        <button className="link-button" onClick={() => { setIsMobileOpen(false); handleLogout(); }}>Sign out</button>
       </div>
       <div className="profile-container" ref={dropdownRef}>
         <button 

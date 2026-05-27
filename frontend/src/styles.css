@@ -147,6 +147,38 @@ body::before {
   color: white;
 }
 
+/* Mobile toggle and mobile menu styles */
+.mobile-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 0.35rem;
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.mobile-toggle svg { stroke: currentColor; }
+
+/* Styling for the mobile menu when open (final visible state) */
+.nav-links.mobile-open {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(15, 23, 42, 0.98);
+  border-bottom: 1px solid var(--border);
+  z-index: 101;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+
+.nav-links.mobile-open a, .nav-links.mobile-open .link-button {
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-sm);
+  display: block;
+}
+
 /* ===== LAYOUT ===== */
 .page-body {
   padding: 1.5rem;
@@ -406,6 +438,51 @@ body::before {
     max-width: 100%;
     padding: 1.8rem;
   }
+}
+
+/* Responsive navbar: show toggle on small screens */
+@media (max-width: 760px) {
+  .mobile-toggle { display: inline-flex; }
+
+  /* Collapsed mobile menu (hidden by default using max-height) */
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: fixed;
+      top: 56px; /* below the nav-bar */
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.98);
+      overflow: hidden;
+      max-height: 0;
+      padding: 0 1rem;
+      opacity: 0;
+      transition: max-height 0.36s ease, opacity 0.28s ease, padding 0.28s ease, transform 0.28s ease;
+      transform: translateY(-6px);
+      z-index: 1100;
+    }
+
+    .nav-links.mobile-open {
+      max-height: 420px;
+      padding: 0.9rem 1rem;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ensure nav sits above hero/background */
+    .nav-bar { z-index: 1150; }
+
+    @keyframes menuDrop {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+  .brand { font-size: 1rem; }
+  .user-badge { display: none; }
+  .page-body { padding: 1rem; }
+  .card h1 { font-size: 1.15rem; }
+  .welcome-banner h1 { font-size: 1.35rem; }
 }
 
 /* ===== FORMS ===== */
@@ -1351,6 +1428,37 @@ tr.overdue-row { background: rgba(239, 68, 68, 0.04); }
 .dropdown-divider {
   height: 1px;
   background: var(--border);
+}
+
+/* ===== DEVICE-SPECIFIC TWEAKS ===== */
+@media (max-width: 480px) {
+  :root { --radius: 10px; --radius-sm: 6px; }
+
+  html, body { font-size: 14px; }
+
+  .card, .secondary-card, .auth-card, .modal-content {
+    padding: 0.85rem;
+    border-radius: calc(var(--radius) * 0.9);
+  }
+
+  .stat-card { min-height: 90px; padding: 0.9rem; }
+  .chart-wrapper { height: 180px; }
+  .table-scroll td, .table-scroll th { font-size: 0.85rem; }
+
+  .nav-links.mobile-open a, .nav-links.mobile-open .link-button { padding: 0.7rem 0.9rem; }
+  .brand { font-size: 0.95rem; }
+
+  .welcome-banner h1 { font-size: 1.15rem; }
+  .card h1 { font-size: 1.05rem; }
+}
+
+@media (min-width: 1200px) {
+  /* Slightly more generous layout for larger laptops / desktops */
+  html, body { font-size: 16px; }
+  .page-body { max-width: 1440px; }
+  .card { padding: 1.25rem; }
+  .stat-card { min-height: 130px; }
+  .chart-wrapper { height: 320px; }
 }
 
 .dropdown-item {
