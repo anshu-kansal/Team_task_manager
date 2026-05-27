@@ -149,7 +149,7 @@ body::before {
 
 /* Mobile toggle and mobile menu styles */
 .mobile-toggle {
-  display: none;
+  display: none; /* hidden by default on larger screens */
   background: transparent;
   border: none;
   color: var(--text-secondary);
@@ -158,16 +158,9 @@ body::before {
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  display: inline-flex;
   line-height: 0;
   position: relative;
-   z-index: 1250;
-  max-width: 1280px;
-  margin: 0 auto;
-  flex: 1 1 auto;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
+  z-index: 1250;
 }
 
 /* Only allow scroll on dashboard/projects/tasks when needed */
