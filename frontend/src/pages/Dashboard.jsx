@@ -29,7 +29,7 @@ function CountUp({ value = 0, duration = 600 }) {
 }
 
 function StatusBadge({ status }) {
-  const cls = status === 'Todo' ? 'badge-todo' : status === 'In Progress' ? 'badge-progress' : 'badge-done';
+  const cls = status === 'To-do' ? 'badge-to-do' : status === 'In Progress' ? 'badge-progress' : 'badge-done';
   return <span className={`badge ${cls}`}>{status}</span>;
 }
 
@@ -82,9 +82,9 @@ export default function Dashboard({ user }) {
               </div>
             </div>
             <div className="stat-card">
-              <div className="stat-icon todo">📝</div>
+              <div className="stat-icon to-do">📝</div>
               <div className="stat-info">
-                <strong>Todo</strong>
+                <strong>To-do</strong>
                 <CountUp value={data.summary.todo || 0} />
               </div>
             </div>

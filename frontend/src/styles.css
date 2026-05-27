@@ -923,7 +923,7 @@ tbody tr:hover {
   white-space: nowrap;
 }
 
-.badge-todo { background: var(--amber-bg); color: var(--amber); }
+.badge-to-do { background: var(--amber-bg); color: var(--amber); }
 .badge-progress { background: var(--blue-bg); color: var(--blue); }
 .badge-done { background: var(--green-bg); color: var(--green); }
 .badge-overdue { background: var(--red-bg); color: var(--red); animation: pulse-red 2s infinite; }
@@ -1093,7 +1093,7 @@ tr.overdue-row { background: rgba(239, 68, 68, 0.04); }
   letter-spacing: 0.5px;
 }
 
-.kanban-header.todo { border-bottom-color: var(--amber); }
+.kanban-header.to-do { border-bottom-color: var(--amber); }
 .kanban-header.progress { border-bottom-color: var(--blue); }
 .kanban-header.done { border-bottom-color: var(--green); }
 
