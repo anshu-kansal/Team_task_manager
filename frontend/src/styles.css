@@ -1607,4 +1607,33 @@ tr.overdue-row { background: rgba(239, 68, 68, 0.04); }
   .brand { margin: 0; font-size: 1.15rem; }
 
   .profile-container { position: static !important; right: auto !important; transform: none !important; }
+
+  /* Desktop dashboard size reductions */
+  .dashboard-grid { gap: 0.6rem !important; }
+
+  .card, .secondary-card {
+    padding: 0.9rem !important;
+    border-radius: 12px !important;
+  }
+
+  .stat-card {
+    min-height: 95px !important;
+    padding: 0.8rem 0.9rem !important;
+    gap: 0.6rem !important;
+  }
+
+  .stat-info strong {
+    font-size: 0.72rem !important;
+  }
+
+  .stat-info .stat-number {
+    font-size: 1.6rem !important;
+  }
+
+  .chart-wrapper { height: 260px !important; }
+
+  .welcome-banner h1 { font-size: clamp(1.6rem, 2.6vw, 2.1rem) !important; }
+  .card h1 { font-size: 1.05rem !important; }
+
+  .page-body { padding: 0.8rem 1rem !important; }
 }
