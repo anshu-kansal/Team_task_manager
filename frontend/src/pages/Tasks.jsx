@@ -48,7 +48,7 @@ export default function Tasks({ user }) {
 
   useEffect(() => {
     load();
-    const socketUrl = import.meta.env.VITE_SOCKET_URL || window.location.origin;
+    const socketUrl = import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_API_URL || window.location.origin;
     const token = localStorage.getItem('ttm_token');
     const socket = io(socketUrl, { auth: { token }, autoConnect: true });
 

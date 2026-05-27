@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+const apiBaseUrl = import.meta.env.VITE_API_URL || '/api';
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api'
+  baseURL: apiBaseUrl,
   headers: { 'Content-Type': 'application/json' }
 });
 
@@ -118,12 +119,13 @@ export async function deleteAttachment(attachmentId) {
 }
 
 export function exportTaskIcs(taskId) {
-  // return a url to download the .ics
-  return `/api/tasks/${taskId}/ics`;
+  const base = apiBaseUrl.replace(/\/$/, '');
+  return `${base}/tasks/${taskId}/ics`;
 }
 
 export function exportProjectIcs(projectId) {
-  return `/api/tasks/project/${projectId}/ics`;
+  const base = apiBaseUrl.replace(/\/$/, '');
+  return `${base}/tasks/project/${projectId}/ics`;
 }
 
 export async function fetchDashboard() {

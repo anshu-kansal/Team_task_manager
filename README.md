@@ -85,3 +85,35 @@ Use two terminals:
 - one for `frontend` running `npm run dev`
 
 Then visit `http://localhost:5173` to access the app.
+
+## Deployment (Vercel frontend, Render backend)
+
+Follow these steps to deploy the frontend to Vercel and the backend to Render.
+
+**Backend (Render)**
+- Create a new Web Service on Render.
+- Connect your repo and select the `backend/` folder as the deploy root.
+- Set the build and start commands:
+   - Build command: `npm install`
+   - Start command: `npm start`
+- Add the following environment variables in Render (set secure values):
+   - **`PORT`**: `4001` (Render sets this automatically, but you can provide a default)
+   - **`JWT_SECRET`**: your JWT secret
+   - **`ADMIN_CODE`**: your admin invite code
+   - **`DATABASE_FILE`**: `./dev.json` or an absolute writable path
+- Ensure `uploads/` is configured or use external storage for persistent uploads.
+
+**Frontend (Vercel)**
+- Create a new project on Vercel and point it to the `frontend/` folder.
+- In Vercel Project Settings → Environment Variables, add:
+   - **`VITE_API_URL`** = `https://<your-backend>.onrender.com/api` or `https://<your-backend>.onrender.com`
+   - **`VITE_SOCKET_URL`** = `https://<your-backend>.onrender.com`
+- If you want a `staging` environment, add a Vercel Environment named `staging` and attach the same variables (or different ones).
+- Deploy the project — Vercel will build using `npm run build` from the `frontend` folder.
+
+Notes:
+- The frontend uses `VITE_API_URL` at runtime (falls back to `/api` for local dev). Be sure to include the protocol (`https://`).
+- `vite.config.js` proxy only affects local `npm run dev` behavior and is ignored in production builds.
+- After setting variables, re-deploy the frontend on Vercel so the build picks up the environment.
+
+If you'd like, I can add a `.vercelignore` or more detailed Render service settings next.
