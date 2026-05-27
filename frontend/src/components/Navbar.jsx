@@ -7,6 +7,7 @@ export default function Navbar({ user, onLogout }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
+  const mobileToggleRef = useRef(null);
   const firstLinkRef = useRef(null);
 
   const handleLogout = () => {
@@ -51,7 +52,10 @@ export default function Navbar({ user, onLogout }) {
     }
 
     function handleClickOutside(e) {
-      if (isMobileOpen && mobileMenuRef.current && !mobileMenuRef.current.contains(e.target)) {
+      if (!isMobileOpen) return;
+      const isInsideMenu = mobileMenuRef.current?.contains(e.target);
+      const isToggleButton = mobileToggleRef.current?.contains(e.target);
+      if (!isInsideMenu && !isToggleButton) {
         setIsMobileOpen(false);
       }
     }
@@ -77,7 +81,9 @@ export default function Navbar({ user, onLogout }) {
       <div className="brand">🚀 Team Task Manager</div>
 
       <button
+        type="button"
         className="mobile-toggle"
+        ref={mobileToggleRef}
         aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isMobileOpen}
         aria-controls="main-nav"
@@ -100,11 +106,10 @@ export default function Navbar({ user, onLogout }) {
         <NavLink to="/dashboard" onClick={() => setIsMobileOpen(false)} ref={firstLinkRef}>📊 Dashboard</NavLink>
         <NavLink to="/projects" onClick={() => setIsMobileOpen(false)}>📁 Projects</NavLink>
         <NavLink to="/tasks" onClick={() => setIsMobileOpen(false)}>✅ Tasks</NavLink>
-        <NavLink to="/profile" onClick={() => setIsMobileOpen(false)}>👤 Profile</NavLink>
-        <button className="link-button" onClick={() => { setIsMobileOpen(false); handleLogout(); }}>Sign out</button>
       </div>
       <div className="profile-container" ref={dropdownRef}>
         <button 
+          type="button"
           className="user-badge"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           title="Profile menu"
