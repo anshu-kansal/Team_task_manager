@@ -1623,3 +1623,39 @@ tr.overdue-row { background: rgba(239, 68, 68, 0.04); }
 
   .profile-container { position: static !important; right: auto !important; transform: none !important; }
 }
+
+/* ===== Exact desktop (laptop) overrides to match screenshot ===== */
+@media (min-width: 1000px) {
+  .page-body {
+    max-width: 1400px;
+    padding: 2rem 3rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.6rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .stat-card {
+    padding: 1.6rem 1.75rem;
+    gap: 1.1rem;
+    min-height: 160px;
+  }
+
+  .stat-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    font-size: 1.5rem;
+  }
+
+  .stat-info .stat-number { font-size: 3rem; }
+
+  .progress-card { padding: 1.9rem 2rem; }
+  .progress-value { font-size: 1.9rem; }
+
+  .dashboard-cards { gap: 1.6rem; margin-top: 1.8rem; }
+  .chart-card, .table-card { padding: 1.8rem 1.8rem; }
+  .chart-wrapper { height: 360px; }
+}
