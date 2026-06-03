@@ -1,3 +1,6 @@
+if (typeof globalThis.crypto === 'undefined') {
+  globalThis.crypto = require('crypto');
+}
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
