@@ -37,9 +37,10 @@ const taskSchema = Joi.object({
   title: Joi.string().min(3).max(150).required(),
   description: Joi.string().allow('').max(500).optional(),
   assigneeEmail: Joi.string().email().required(),
-  dueDate: Joi.date().iso().optional(),
-  status: Joi.string().valid('Todo', 'In Progress', 'Done').optional(),
-  priority: Joi.string().valid('Low', 'Medium', 'High').optional()
+  dueDate: Joi.date().iso().optional().allow(null, ''),
+  status: Joi.string().valid('Todo', 'In Progress', 'In Review', 'Done').optional(),
+  priority: Joi.string().valid('Low', 'Medium', 'High', 'Urgent').optional(),
+  labels: Joi.array().items(Joi.string()).optional()
 });
 
 module.exports = {
