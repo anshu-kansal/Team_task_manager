@@ -90,11 +90,9 @@ export default function Projects({ user }) {
           <p className="text-xs font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-widest mb-1">Workspaces</p>
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Projects</h1>
         </div>
-        {user.role === 'admin' && (
-          <Button onClick={() => setShowModal(true)} className="gap-2">
-            <Plus size={16} /> New Project
-          </Button>
-        )}
+        <Button onClick={() => setShowModal(true)} className="gap-2">
+          <Plus size={16} /> New Project
+        </Button>
       </div>
 
       {/* Main Grid: Left projects list, right project detail view */}
@@ -128,7 +126,7 @@ export default function Projects({ user }) {
               icon={FolderOpen}
               title="No projects configured"
               description="Your account is not linked to any active project workspace groups."
-              action={user.role === 'admin' ? () => setShowModal(true) : null}
+              action={() => setShowModal(true)}
               actionLabel="Create Project"
             />
           ) : (
@@ -220,8 +218,8 @@ export default function Projects({ user }) {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 space-y-4">
-                    {/* User Invite Form (Admin only) */}
-                    {user.role === 'admin' && (
+                    {/* User Invite Form (Admin or Project Owner) */}
+                    {(user.role === 'admin' || selectedProject?.project?.ownerId === user.id) && (
                       <form onSubmit={handleAddMember} className="flex gap-2">
                         <div className="relative flex-1">
                           <Mail className="absolute left-3 top-2.5 h-4 w-4 text-surface-400" />
@@ -256,7 +254,7 @@ export default function Projects({ user }) {
                             <Badge variant={member.role === 'admin' ? 'default' : 'outline'} className="text-[9px] px-1.5 py-0 capitalize">
                               {member.role}
                             </Badge>
-                            {user.role === 'admin' && member.id !== selectedProject.project.ownerId && (
+                            {(user.role === 'admin' || selectedProject?.project?.ownerId === user.id) && member.id !== selectedProject.project.ownerId && (
                               <button 
                                 className="rounded p-1 text-surface-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all"
                                 onClick={() => handleRemoveMember(member.id)}

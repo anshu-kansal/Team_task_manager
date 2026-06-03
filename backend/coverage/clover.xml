@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1780483990643" clover="3.2.0">
-  <project timestamp="1780483990643" name="All files">
-    <metrics statements="633" coveredstatements="223" conditionals="341" coveredconditionals="26" methods="80" coveredmethods="8" elements="1054" coveredelements="257" complexity="0" loc="633" ncloc="633" packages="6" files="18" classes="18"/>
+<coverage generated="1780501978165" clover="3.2.0">
+  <project timestamp="1780501978166" name="All files">
+    <metrics statements="645" coveredstatements="227" conditionals="352" coveredconditionals="27" methods="82" coveredmethods="8" elements="1079" coveredelements="262" complexity="0" loc="645" ncloc="645" packages="6" files="18" classes="18"/>
     <package name="src">
-      <metrics statements="47" coveredstatements="41" conditionals="8" coveredconditionals="4" methods="5" coveredmethods="1"/>
+      <metrics statements="49" coveredstatements="42" conditionals="8" coveredconditionals="4" methods="6" coveredmethods="1"/>
       <file name="app.js" path="C:\Users\anshu\OneDrive\Desktop\team task manager\backend\src\app.js">
-        <metrics statements="31" coveredstatements="30" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <metrics statements="33" coveredstatements="31" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="1"/>
         <line num="1" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
@@ -28,15 +28,17 @@
         <line num="25" count="2" type="stmt"/>
         <line num="27" count="2" type="stmt"/>
         <line num="33" count="2" type="stmt"/>
-        <line num="35" count="2" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="38" count="2" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
         <line num="39" count="2" type="stmt"/>
-        <line num="40" count="2" type="stmt"/>
-        <line num="41" count="2" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
         <line num="44" count="2" type="stmt"/>
         <line num="45" count="2" type="stmt"/>
-        <line num="47" count="2" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="51" count="2" type="stmt"/>
       </file>
       <file name="db.js" path="C:\Users\anshu\OneDrive\Desktop\team task manager\backend\src\db.js">
         <metrics statements="16" coveredstatements="11" conditionals="6" coveredconditionals="3" methods="4" coveredmethods="0"/>
@@ -59,19 +61,25 @@
       </file>
     </package>
     <package name="src.config">
-      <metrics statements="10" coveredstatements="7" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
+      <metrics statements="16" coveredstatements="10" conditionals="7" coveredconditionals="4" methods="2" coveredmethods="1"/>
       <file name="db.js" path="C:\Users\anshu\OneDrive\Desktop\team task manager\backend\src\config\db.js">
-        <metrics statements="10" coveredstatements="7" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <metrics statements="16" coveredstatements="10" conditionals="7" coveredconditionals="4" methods="2" coveredmethods="1"/>
         <line num="1" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
-        <line num="6" count="2" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="8" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="7" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="2" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.middleware">
@@ -147,7 +155,7 @@
       </file>
     </package>
     <package name="src.routes">
-      <metrics statements="520" coveredstatements="132" conditionals="311" coveredconditionals="14" methods="69" coveredmethods="5"/>
+      <metrics statements="524" coveredstatements="132" conditionals="319" coveredconditionals="14" methods="69" coveredmethods="5"/>
       <file name="auth.js" path="C:\Users\anshu\OneDrive\Desktop\team task manager\backend\src\routes\auth.js">
         <metrics statements="92" coveredstatements="53" conditionals="34" coveredconditionals="12" methods="9" coveredmethods="5"/>
         <line num="1" count="2" type="stmt"/>
@@ -244,7 +252,7 @@
         <line num="202" count="2" type="stmt"/>
       </file>
       <file name="projects.js" path="C:\Users\anshu\OneDrive\Desktop\team task manager\backend\src\routes\projects.js">
-        <metrics statements="64" coveredstatements="16" conditionals="20" coveredconditionals="0" methods="8" coveredmethods="0"/>
+        <metrics statements="68" coveredstatements="16" conditionals="28" coveredconditionals="0" methods="8" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -278,37 +286,41 @@
         <line num="66" count="0" type="stmt"/>
         <line num="67" count="0" type="stmt"/>
         <line num="68" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="71" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="73" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="74" count="0" type="stmt"/>
+        <line num="71" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="72" count="0" type="stmt"/>
         <line num="75" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="90" count="0" type="stmt"/>
-        <line num="94" count="2" type="stmt"/>
+        <line num="76" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="78" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
         <line num="95" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="97" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="99" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="99" count="2" type="stmt"/>
         <line num="100" count="0" type="stmt"/>
-        <line num="103" count="0" type="stmt"/>
-        <line num="104" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="101" count="0" type="stmt"/>
+        <line num="102" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="105" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="106" count="0" type="stmt"/>
-        <line num="107" count="0" type="stmt"/>
-        <line num="109" count="0" type="stmt"/>
+        <line num="109" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="110" count="0" type="stmt"/>
+        <line num="113" count="0" type="stmt"/>
+        <line num="114" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="116" count="0" type="stmt"/>
+        <line num="117" count="0" type="stmt"/>
         <line num="119" count="0" type="stmt"/>
-        <line num="121" count="0" type="stmt"/>
-        <line num="125" count="2" type="stmt"/>
-        <line num="126" count="0" type="stmt"/>
-        <line num="127" count="0" type="stmt"/>
-        <line num="131" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="133" count="0" type="stmt"/>
-        <line num="134" count="0" type="stmt"/>
+        <line num="129" count="0" type="stmt"/>
+        <line num="131" count="0" type="stmt"/>
+        <line num="135" count="2" type="stmt"/>
         <line num="136" count="0" type="stmt"/>
+        <line num="137" count="0" type="stmt"/>
+        <line num="141" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="143" count="0" type="stmt"/>
+        <line num="144" count="0" type="stmt"/>
         <line num="146" count="0" type="stmt"/>
-        <line num="149" count="0" type="stmt"/>
-        <line num="153" count="2" type="stmt"/>
+        <line num="156" count="0" type="stmt"/>
+        <line num="159" count="0" type="stmt"/>
+        <line num="163" count="2" type="stmt"/>
       </file>
       <file name="tasks.js" path="C:\Users\anshu\OneDrive\Desktop\team task manager\backend\src\routes\tasks.js">
         <metrics statements="274" coveredstatements="40" conditionals="217" coveredconditionals="1" methods="40" coveredmethods="0"/>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.22% </span>
+                <span class="strong">21.05% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/72</span>
+                <span class='fraction'>16/76</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">23.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/64</span>
+                <span class='fraction'>16/68</span>
             </div>
         
             
@@ -216,7 +216,17 @@
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -285,6 +295,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -313,6 +328,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -410,7 +430,7 @@ router.get('/', <span class="fstat-no" title="function not covered" >as</span>yn
   }
 });
 &nbsp;
-router.post('/', requireAdmin, <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+router.post('/', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
   const { error, value } = <span class="cstat-no" title="statement not covered" >projectSchema.validate(req.body);</span>
 <span class="cstat-no" title="statement not covered" >  if (error) <span class="cstat-no" title="statement not covered" >return res.status(400).json({ error: error.message });</span></span>
 &nbsp;
@@ -430,13 +450,18 @@ router.post('/', requireAdmin, <span class="fstat-no" title="function not covere
   }
 });
 &nbsp;
-router.post('/:projectId/members', requireAdmin, <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+router.post('/:projectId/members', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
   const { error, value } = <span class="cstat-no" title="statement not covered" >memberSchema.validate(req.body);</span>
 <span class="cstat-no" title="statement not covered" >  if (error) <span class="cstat-no" title="statement not covered" >return res.status(400).json({ error: error.message });</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  try {</span>
     const project = <span class="cstat-no" title="statement not covered" >await Project.findById(req.params.projectId);</span>
 <span class="cstat-no" title="statement not covered" >    if (!project) <span class="cstat-no" title="statement not covered" >return res.status(404).json({ error: 'Project not found' });</span></span>
+&nbsp;
+    // Allow project owner or admin to add members
+<span class="cstat-no" title="statement not covered" >    if (project.owner.toString() !== req.user.id &amp;&amp; req.user.role !== 'admin') {</span>
+<span class="cstat-no" title="statement not covered" >      return res.status(403).json({ error: 'Only the project owner or an admin can manage members' });</span>
+    }
 &nbsp;
     const user = <span class="cstat-no" title="statement not covered" >await User.findOne({ email: value.email });</span>
 <span class="cstat-no" title="statement not covered" >    if (!user) <span class="cstat-no" title="statement not covered" >return res.status(404).json({ error: 'User not found' });</span></span>
@@ -462,10 +487,15 @@ router.post('/:projectId/members', requireAdmin, <span class="fstat-no" title="f
   }
 });
 &nbsp;
-router.delete('/:projectId/members/:userId', requireAdmin, <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
+router.delete('/:projectId/members/:userId', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
 <span class="cstat-no" title="statement not covered" >  try {</span>
     const project = <span class="cstat-no" title="statement not covered" >await Project.findById(req.params.projectId);</span>
 <span class="cstat-no" title="statement not covered" >    if (!project) <span class="cstat-no" title="statement not covered" >return res.status(404).json({ error: 'Project not found' });</span></span>
+&nbsp;
+    // Allow project owner or admin to remove members
+<span class="cstat-no" title="statement not covered" >    if (project.owner.toString() !== req.user.id &amp;&amp; req.user.role !== 'admin') {</span>
+<span class="cstat-no" title="statement not covered" >      return res.status(403).json({ error: 'Only the project owner or an admin can manage members' });</span>
+    }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (project.owner.toString() === req.params.userId) {</span>
 <span class="cstat-no" title="statement not covered" >      return res.status(400).json({ error: 'Cannot remove the project owner' });</span>
@@ -529,7 +559,7 @@ module.exports = router;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-03T10:53:10.407Z
+                at 2026-06-03T15:52:58.064Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

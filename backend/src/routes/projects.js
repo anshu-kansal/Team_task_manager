@@ -39,7 +39,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', requireAdmin, async (req, res) => {
+router.post('/', async (req, res) => {
   const { error, value } = projectSchema.validate(req.body);
   if (error) return res.status(400).json({ error: error.message });
 
@@ -59,13 +59,18 @@ router.post('/', requireAdmin, async (req, res) => {
   }
 });
 
-router.post('/:projectId/members', requireAdmin, async (req, res) => {
+router.post('/:projectId/members', async (req, res) => {
   const { error, value } = memberSchema.validate(req.body);
   if (error) return res.status(400).json({ error: error.message });
 
   try {
     const project = await Project.findById(req.params.projectId);
     if (!project) return res.status(404).json({ error: 'Project not found' });
+
+    // Allow project owner or admin to add members
+    if (project.owner.toString() !== req.user.id && req.user.role !== 'admin') {
+      return res.status(403).json({ error: 'Only the project owner or an admin can manage members' });
+    }
 
     const user = await User.findOne({ email: value.email });
     if (!user) return res.status(404).json({ error: 'User not found' });
@@ -91,10 +96,15 @@ router.post('/:projectId/members', requireAdmin, async (req, res) => {
   }
 });
 
-router.delete('/:projectId/members/:userId', requireAdmin, async (req, res) => {
+router.delete('/:projectId/members/:userId', async (req, res) => {
   try {
     const project = await Project.findById(req.params.projectId);
     if (!project) return res.status(404).json({ error: 'Project not found' });
+
+    // Allow project owner or admin to remove members
+    if (project.owner.toString() !== req.user.id && req.user.role !== 'admin') {
+      return res.status(403).json({ error: 'Only the project owner or an admin can manage members' });
+    }
 
     if (project.owner.toString() === req.params.userId) {
       return res.status(400).json({ error: 'Cannot remove the project owner' });
