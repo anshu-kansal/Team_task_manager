@@ -1,4 +1,5 @@
 const request = require('supertest');
+const mongoose = require('mongoose');
 const app = require('../src/app');
 const { db } = require('../src/db');
 
@@ -6,6 +7,10 @@ describe('Auth routes', () => {
   const email = `test+${Date.now()}@example.com`;
   const password = 'password123';
   let token;
+
+  afterAll(async () => {
+    await mongoose.connection.close();
+  });
 
   it('should report email not existing', async () => {
     const res = await request(app).post('/api/auth/check-email').send({ email }).expect(200);
