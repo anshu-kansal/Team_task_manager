@@ -26,12 +26,16 @@ app.use(express.json());
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per `window`
+  max: 500, // Limit each IP to 500 requests per window
   standardHeaders: true,
   legacyHeaders: false,
 });
 app.use('/api', apiLimiter);
 
+// Root health check endpoint for Render/hosting platforms
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
 app.get('/api', (req, res) => {
   res.json({ message: 'Team Task Manager API is running' });
 });
