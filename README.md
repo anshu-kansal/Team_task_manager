@@ -1,119 +1,114 @@
-# Team Task Manager
+# TaskMaster — Collaborative Workspace & Kanban Board
 
-A team task management app built for collaboration, simple workflows, and easy project tracking.
+TaskMaster is a modern, responsive team workspace and project tracker designed to help teams collaborate, organize workflows, and measure productivity. Built on the MERN stack with real-time sync capabilities, it provides a clean SaaS-style dashboard, interactive Kanban pipelines, and team workspace management.
 
-## Overview
-This repository includes:
-- A React + Vite frontend for sign-in, dashboards, project boards, and task management.
-- An Express backend with JWT authentication, role-based access, and project/task APIs.
-- Local JSON-backed storage for development using lowdb.
+---
 
-## Key features
-- Login / signup with secure token-based authentication
-- Admin and member roles with access control
-- Project creation, member assignment, and project details view
-- Task board with drag-and-drop status updates
-- Task assignment, due dates, priority levels, and overdue marking
-- Dashboard metrics, charts, and recent task activity
+## 🚀 Key Features
 
-## Quick start
-### Backend
-1. Open a terminal in `backend`
-2. Copy `.env.example` to `.env`
-3. Install dependencies:
+* **Interactive Dashboards**: Clean SaaS dashboard with visual progress charts, status breakdown metrics, and recent team activity logs.
+* **Kanban Workspaces**: A fluid drag-and-drop board powered by `@hello-pangea/dnd` to track task statuses (To Do, In Progress, Review, Done).
+* **Decentralized Project Workspaces**: 
+  - Standard users can create and own project workspaces.
+  - Project owners and administrators can invite/remove teammates using an built-in email lookup system.
+* **Granular Task Control**: Assign tasks, set priorities (Low, Medium, High, Urgent), define due dates, and track subtasks. Overdue tasks are automatically flagged.
+* **Real-time Sync**: Uses WebSockets (`socket.io`) to update board changes across different team member screens instantly.
+* **Polished Dark Mode**: Reusable animated theme toggle with system preference detection and smooth transitions.
+
+---
+
+## 🛠️ Technology Stack
+
+* **Frontend**: React (Vite), Zustand (State), Framer Motion (Transitions), Chart.js (Charts), Tailwind CSS (Theme styling)
+* **Backend**: Node.js, Express, Socket.io (WebSockets)
+* **Database**: MongoDB & Mongoose (Schema validation & persistence)
+* **Authentication**: JSON Web Tokens (JWT) & bcryptjs (password hashing)
+
+---
+
+## 💻 Getting Started
+
+You can run both the frontend and backend servers locally on your machine.
+
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- A running MongoDB instance (locally or cloud via MongoDB Atlas)
+
+---
+
+### Step 1: Backend Setup
+
+1. Open your terminal and navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Create a `.env` file by copying the example template:
+   ```bash
+   cp .env.example .env
+   ```
+3. Open `.env` and fill in your variables:
+   - `PORT`: Server port (default: `4001`)
+   - `JWT_SECRET`: A secure random secret key
+   - `MONGO_URI`: Your MongoDB connection string (e.g. `mongodb://127.0.0.1:27017/team-task-manager`)
+4. Install the dependencies:
    ```bash
    npm install
    ```
-4. Start the backend:
+5. *(Optional)* Seed your database with development mock data:
+   ```bash
+   node scripts/migrate.js
+   ```
+6. Start the development server:
    ```bash
    npm run dev
    ```
-5. By default, the backend listens on `http://localhost:4001`
 
-### Frontend
-1. Open a terminal in `frontend`
-2. Install dependencies:
+---
+
+### Step 2: Frontend Setup
+
+1. Open a new terminal window and navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install the frontend dependencies:
    ```bash
    npm install
    ```
-3. Start the frontend:
+3. Start the Vite bundler locally:
    ```bash
    npm run dev
    ```
-4. Open the app at `http://localhost:5173`
+4. Open your browser and navigate to the local address displayed in your terminal (typically `http://localhost:5173`).
 
-## Build for production
-### Frontend
-```bash
-cd frontend
-npm install
-npm run build
-```
+---
 
-### Backend
-```bash
-cd backend
-npm install
-npm start
-```
+## 🔑 Default Accounts (Seed Data)
 
-## Default account
-- Email: `admin@teamtask.com`
-- Password: `Admin@123`
+If you seeded the database using the migration script, you can log in with:
 
-## Configuration
-The backend loads environment variables from `backend/.env`. Available settings include:
-- `PORT` — server port (defaults to `4001` if not set)
-- `JWT_SECRET` — secret for signing tokens
-- `ADMIN_CODE` — invite code for admin registration
-- `DATABASE_FILE` — local lowdb file path
+| Account Type | Email | Password |
+| :--- | :--- | :--- |
+| **Administrator** | `admin@teamtask.com` | `Admin@123` |
 
-## Notes
-- Project data is stored in `backend/dev.json` for local development.
-- The frontend is configured to proxy API calls to the backend at `http://localhost:4001`.
-- Overdue tasks are flagged automatically when the due date passes and the task is not complete.
-- Admin users can add members to projects and manage project assignments.
+---
 
-## Project structure
-- `backend/` — Express API, authentication, routes, and data storage
-- `frontend/` — React UI, pages, components, and styles
-- `backend/dev.json` — development data store
+## ☁️ Production Deployment
 
-## Running locally
-Use two terminals:
-- one for `backend` running `npm run dev`
-- one for `frontend` running `npm run dev`
+### Backend (Render)
+1. Set up a new **Web Service** on Render and link it to your GitHub repository.
+2. Select `backend/` as the **Root Directory**.
+3. Set the build and start commands:
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+4. In your Render service configuration, add the following environment variables:
+   - `MONGO_URI`: Your cloud MongoDB connection string
+   - `JWT_SECRET`: A secure production secret key
+   - `ADMIN_CODE`: A secret string used for creating new admin users at signup
 
-Then visit `http://localhost:5173` to access the app.
-
-## Deployment (Vercel frontend, Render backend)
-
-Follow these steps to deploy the frontend to Vercel and the backend to Render.
-
-**Backend (Render)**
-- Create a new Web Service on Render.
-- Connect your repo and select the `backend/` folder as the deploy root.
-- Set the build and start commands:
-   - Build command: `npm install`
-   - Start command: `npm start`
-- Add the following environment variables in Render (set secure values):
-   - **`PORT`**: `4001` (Render sets this automatically, but you can provide a default)
-   - **`JWT_SECRET`**: your JWT secret
-   - **`ADMIN_CODE`**: your admin invite code
-   - **`DATABASE_FILE`**: `./dev.json` or an absolute writable path
-- Ensure `uploads/` is configured or use external storage for persistent uploads.
-
-**Frontend (Vercel)**
-- Create a new project on Vercel and point it to the `frontend/` folder.
-- In Vercel Project Settings → Environment Variables, add:
-   - **`VITE_API_URL`** = `https://<your-backend>.onrender.com/api` or `https://<your-backend>.onrender.com`
-   - **`VITE_SOCKET_URL`** = `https://<your-backend>.onrender.com`
-- If you want a `staging` environment, add a Vercel Environment named `staging` and attach the same variables (or different ones).
-- Deploy the project — Vercel will build using `npm run build` from the `frontend` folder.
-
-Notes:
-- The frontend uses `VITE_API_URL` at runtime (falls back to `/api` for local dev). Be sure to include the protocol (`https://`).
-- `vite.config.js` proxy only affects local `npm run dev` behavior and is ignored in production builds.
-- After setting variables, re-deploy the frontend on Vercel so the build picks up the environment.
-
-If you'd like, I can add a `.vercelignore` or more detailed Render service settings next.
+### Frontend (Vercel)
+1. Set up a new project on Vercel and point it to the `frontend/` folder.
+2. Under project settings, add the following **Environment Variables**:
+   - `VITE_API_URL`: `https://your-backend-app.onrender.com/api` *(make sure to include /api)*
+   - `VITE_SOCKET_URL`: `https://your-backend-app.onrender.com`
+3. Click deploy. Vercel will build the frontend using `npm run build`.
